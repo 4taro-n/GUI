@@ -1,6 +1,7 @@
+/**
+ * This enum is used for given definition to menu
+ */
 public enum ScreenMode {
-    //画面モードはとりあえず一つだけ
-    TITLE,
-    GAME,
-    MAIN,
+    GENERATE,
+    SEARCH,
 }

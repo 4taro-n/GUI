@@ -4,14 +4,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.xml.transform.ErrorListener;
 
-//ゲーム画面上部に貼り付ける
+/**
+ * This class is made up operation board with button and spinner.
+ * The panel is part of Generate maze panel.
+ */
 public class ButtonPanel extends JPanel {
     private static final long serialVersionUID = 1L;
-
-    //コンポーネント
-    JLabel homeLabel;
-    JButton homeButton;
-    HomeButtonListener homeButtonListener;
 
     JSpinner spinnerRow;
     JSpinner spinnerColumn;
@@ -31,24 +29,20 @@ public class ButtonPanel extends JPanel {
     JButton buttonSolution;
     JButton buttonSave;
 
-    ErrorListener errorListener;
-
-
-
-
-    //コンストラクタ
+    /**
+     * This constructor is used to made up base of button panel
+     */
     public ButtonPanel() {
-        //パネルサイズと貼り付け位置の設定は不要（Cardlayoutが勝手に画面サイズに合わせてくれる）
         this.setPreferredSize(new Dimension(200, 600));
-        this.setBackground(Color.green);
+        this.setBackground(Color.gray);
         this.setLayout(null);
-        //その他の追加設定をここに追加
     }
 
-    //コンストラクタが呼ばれたあと手動で呼び出す
+    /**
+     * This method is used to create detail design of generate maze page
+     */
     public void prepareComponents() {
         //JSpinner
-        //上限下限がなければnull
         SpinnerNumberModel model = new SpinnerNumberModel(31, 4, 100, 2);
         spinnerRow = new JSpinner(model);
         spinnerRow.setBounds(80, 30, 100, 30);
@@ -62,7 +56,8 @@ public class ButtonPanel extends JPanel {
         labelRow.setBounds(30,30,100,30);
 
         //column
-        spinnerColumn = new JSpinner(model);
+        SpinnerNumberModel model03 = new SpinnerNumberModel(31, 4, 100, 2);
+        spinnerColumn = new JSpinner(model03);
         spinnerColumn.setBounds(80, 60, 100, 30);
 
         //column-label
@@ -72,58 +67,58 @@ public class ButtonPanel extends JPanel {
         //difficulity
         SpinnerNumberModel model02 = new SpinnerNumberModel(50, 0, 100, 1);
         spinnerDifficulity = new JSpinner(model02);
-        spinnerDifficulity.setBounds(80, 330, 100, 30);
+        spinnerDifficulity.setBounds(30, 230, 100, 30);
 
-        labelDifficulity = new JLabel("Difficulity(0-100)");
-        labelDifficulity.setBounds(10,330,100,30);
+        labelDifficulity = new JLabel("Difficulity(Lv0-Lv100)");
+        labelDifficulity.setBounds(30,200,150,30);
 
         //Author
         textFieldAuthor = new JTextField();
-        textFieldAuthor.setBounds(80, 90, 100, 30);
+        textFieldAuthor.setBounds(30, 290, 150, 30);
         textFieldAuthor.setCaretColor(Color.BLUE);
         textFieldAuthor.setFont(new Font(null,Font.PLAIN,15));
         //デフォルトで文字を入れておく
-        textFieldAuthor.setText("ex) 100");
+        textFieldAuthor.setText("ex) Name");
         //textField.setEditable(false);
 
         //Author-label
         labelAuthor = new JLabel("Author name");
-        labelAuthor.setBounds(5,90,100,30);
+        labelAuthor.setBounds(38,260,100,30);
 
         //textFieldTitle
         textFieldTitle = new JTextField();
-        textFieldTitle.setBounds(80, 120, 100, 30);
+        textFieldTitle.setBounds(30, 350, 150, 30);
         textFieldTitle.setCaretColor(Color.BLUE);
         textFieldTitle.setFont(new Font(null,Font.PLAIN,15));
         //デフォルトで文字を入れておく
-        textFieldTitle.setText("ex) 100");
+        textFieldTitle.setText("ex) Maze title");
         //textField.setEditable(false);
 
         //textFieldTitle-label
         labelTitle = new JLabel("Maze title");
-        labelTitle.setBounds(10,120,100,30);
+        labelTitle.setBounds(38,320,100,40);
 
         //buttonStartImage
         //ボタンの生成
         buttonStartImage = new JButton("Select start image");
-        buttonStartImage.setBounds(30,150,150,30);
+        buttonStartImage.setBounds(30,100,150,30);
 //        myButtonListener = new MyButtonListener();
 
         //buttonGoalImage
-        buttonGoalImage = new JButton("Select start image");
-        buttonGoalImage.setBounds(30,180,150,30);
+        buttonGoalImage = new JButton("Select goal image");
+        buttonGoalImage.setBounds(30,130,150,30);
 
         //buttonLogoImage
         buttonLogoImage = new JButton("Select logo image");
-        buttonLogoImage.setBounds(30,210,150,30);
+        buttonLogoImage.setBounds(30,160,150,30);
 
         //buttonStart
         buttonStart = new JButton("Start");
-        buttonStart.setBounds(30,240,100,30);
+        buttonStart.setBounds(30,400,100,40);
 
         //buttonSolution
         buttonSolution = new JButton("Solution");
-        buttonSolution.setBounds(30,270,100,30);
+        buttonSolution.setBounds(30,450,100,40);
         buttonSolution.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 ErrorListener();
@@ -132,7 +127,7 @@ public class ButtonPanel extends JPanel {
 
         //buttonSave
         buttonSave = new JButton("Save");
-        buttonSave.setBounds(30,300,100,30);
+        buttonSave.setBounds(30,500,100,40);
 
 
         this.add(spinnerRow);
@@ -155,14 +150,17 @@ public class ButtonPanel extends JPanel {
 
     }
 
-    private class HomeButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Main.mainWindow.setFrontScreenAndFocus(ScreenMode.TITLE);
-        }
+//    private class HomeButtonListener implements ActionListener {
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//            Main.mainWindow.setFrontScreenAndFocus(ScreenMode.GENERATE);
+//        }
+//
+//    }
 
-    }
-
+    /**
+     * This method is display error message in the case the maze is not solvable
+     */
     private void ErrorListener() {
         JOptionPane.showMessageDialog(this, "This maze is not solvable!",
                 "Error", JOptionPane.ERROR_MESSAGE);

@@ -9,15 +9,14 @@ import java.util.Collections;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
-import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 import java.awt.FlowLayout;
 
-public class TitlePanel extends JPanel {
+/**
+ * This class is made up of database menu panel
+ * */
+public class SearchMazeMenu extends JPanel {
     private static final long serialVersionUID = 1L;
-
-    //コンポーネント
-    JLabel titleLabel;
 
     JButton buttonAdd;
     JButton buttonSearch;
@@ -25,43 +24,26 @@ public class TitlePanel extends JPanel {
     JList<Title> listMazeTitle;
     CustomListModel<Title> listModel;
     java.util.List<Title> mazeTitles  = new ArrayList<>();
-    JScrollPane displayMazeTitle;
 
     JButton buttonExport;
     JButton buttonModify;
 
     ModifyMazewithData modifyMazewithData;
 
-    //コンストラクタ
-    TitlePanel() {
-        //パネルサイズと貼り付け位置の設定は不要（CardLayoutが勝手に画面サイズに合わせてくれる）
-        //レイアウトの設定
-//        this.setLayout(null);
+    /**
+     * This constructor is used to made up of base of database menu panel
+     */
+    SearchMazeMenu() {
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 10,10));
-        //背景の色
-        this.setBackground(Color.red);
-        //その他の追加設定をここに追加
+        this.setBackground(Color.gray);
     }
 
-    //コンストラクタが呼ばれた後手動で呼び出す
+    /**
+     * This method is used to create detail design of database page
+     */
     public void prepareComponents() {
-        //以降コンポーネントに関する命令（以下は一例）
-        //ラベル生成
-//        titleLabel = new JLabel();
-//        //ラベルに文字を記入
-//        titleLabel.setText("タイトル画面");
-//        //位置とサイズを指定
-//        titleLabel.setBounds(100,0,100,30);
-//        //ラベルをこのパネルに貼る
-//        this.add(titleLabel);
-
-//        setLayout(new FlowLayout(FlowLayout.CENTER, 10,10));
-
-        JPanel panelButton = new JPanel();
-        panelButton = new JPanel();
-        panelButton.setLayout(new FlowLayout(FlowLayout.CENTER));
-
-        buttonAdd = new JButton("All New Title");
+        //Button for open up the pane for adding new item to database
+        buttonAdd = new JButton("Add New Maze Title");
         buttonAdd.setBounds(30,50,150,30);
         buttonAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -69,7 +51,8 @@ public class TitlePanel extends JPanel {
             }
         });
 
-        buttonSearch = new JButton("Search Persons");
+        //Button for open up the pane for searching item from database
+        buttonSearch = new JButton("Search Maze Title");
         buttonSearch.setBounds(350,50,150, 30);
         buttonSearch.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -77,6 +60,7 @@ public class TitlePanel extends JPanel {
             }
         });
 
+        //Button for sort the item in list below of the panel
         buttonSort = new JButton("Sort Titles");
         buttonSort.setBounds(650,50,150, 30);
         buttonSort.addActionListener(new ActionListener() {
@@ -85,23 +69,17 @@ public class TitlePanel extends JPanel {
             }
         });
 
+        //List for displaying the list in the database
         listMazeTitle = new JList<>();
         mazeTitles = new ArrayList<>();
-
-//        setLayout(new BorderLayout());
-//        listMazeTitle  = new JList<>();
-//        displayMazeTitle = new JScrollPane(listMazeTitle);
-//        listMazeTitle.setLayoutOrientation(JList.VERTICAL);
-//        displayMazeTitle.setBounds(30,30, 400, 400);
-
-
         listMazeTitle.setPreferredSize(new Dimension(400, 400));
-
         listModel = new CustomListModel<Title>(mazeTitles);
         listMazeTitle.setModel(listModel);
 
+        //Add item in the database
         listModel.addElement(new Title("Maze Title List"));
 
+        //Button for exporting image as JPEG(there is no features at this stage)
         buttonExport = new JButton("Export as JPEG");
         buttonExport.setBounds(50,600,150, 30);
         buttonExport.addActionListener(new ActionListener() {
@@ -110,23 +88,24 @@ public class TitlePanel extends JPanel {
             }
         });
 
+        //Button for modify maze with selected data(Just move to GenerateMaze panel at this stage)
         buttonModify = new JButton("Modify Maze");
         buttonModify.setBounds(650,600,150, 30);
         modifyMazewithData = new ModifyMazewithData();
         buttonModify.addActionListener(modifyMazewithData);
 
-
+        //Add all features
         this.add(buttonAdd);
         this.add(buttonSearch);
         this.add(buttonSort);
         this.add(listMazeTitle);
-//        this.add(displayMazeTitle);
         this.add(buttonExport);
         this.add(buttonModify);
-
-
     }
 
+    /**
+     * This methods is used to open a new pane and add item to database(just maze title list at this stage) by user input
+     */
     private void addMazeTitle() {
         String mazeTitle = JOptionPane.showInputDialog(this, "Enter maze Title");
         if(mazeTitle != null) {
@@ -134,11 +113,17 @@ public class TitlePanel extends JPanel {
         }
     }
 
+    /**
+     * This methods is used to open a new pane and sort the items displying by user input
+     */
     private void sortMazeTitle() {
         Collections.sort(mazeTitles);
         listModel.fireDateChanged();
     }
 
+    /**
+     * This methods is used to open a new pane and search and dispplay the item by user input
+     */
     private void searchMazeTitle() {
         String mazeTitle = JOptionPane.showInputDialog(this, "Enter person name to search for:");
 
@@ -156,10 +141,13 @@ public class TitlePanel extends JPanel {
         }
     }
 
+    /**
+     * This method is used to transition to generate Maze page with user selected data(just trsnsition to generation panel at this stage)
+     */
     private class ModifyMazewithData implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            Main.mainWindow.setFrontScreenAndFocus(ScreenMode.GAME);
+            Main.mainWindow.setFrontScreenAndFocus(ScreenMode.GENERATE);
         }
 
     }

@@ -5,7 +5,6 @@ import java.util.List;
  * CustomListModel.java
  * This is an implementation of ListModel that supports using a List
  * collection as the underlying data.
- * @author www.codejava.net
  */
 public class CustomListModel<E> extends AbstractListModel {
     List<E> list;
