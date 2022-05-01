@@ -1,36 +1,38 @@
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.*;
-import javax.swing.JLabel;
 
+/**
+ * This class is used for displaying generated maze puzzle
+ */
 public class MazePanel extends JPanel {
     private static final long serialVersionUID = 1L;
 
-    //コンポーネント
     JLabel titleLabel;
+    JPanel displayMaze;
 
-    //コンストラクタ
+    /**
+     * This constructor is used to made up base of maze panel
+     */
     MazePanel() {
-        //パネルサイズと貼り付け位置の設定は不要（CardLayoutが勝手に画面サイズに合わせてくれる）
-        //レイアウトの設定
-        //その他の追加設定をここに追加
-        this.setPreferredSize(new Dimension(600, 600));
-        //背景の色
-        this.setBackground(Color.white);
-        this.setLayout(null);
+        this.setLayout(new FlowLayout(FlowLayout.CENTER, 10,10));
+//        this.setPreferredSize(new Dimension(600, 600));
+        this.setBackground(Color.yellow);
+//        this.setLayout(null);
     }
 
-    //コンストラクタが呼ばれた後手動で呼び出す
+    /**
+     * This method is used to create detail design of generate maze page
+     */
     public void prepareComponents() {
-        //以降コンポーネントに関する命令（以下は一例）
-        //ラベル生成
         titleLabel = new JLabel();
-        //ラベルに文字を記入
-        titleLabel.setText("Maze");
-        //位置とサイズを指定
+        titleLabel.setText("Maze will display here");
         titleLabel.setBounds(100,40,100,30);
-        //ラベルをこのパネルに貼る
+
+        displayMaze = new JPanel();
+        displayMaze.setPreferredSize(new Dimension(500, 500));
+        displayMaze.setBackground(Color.white);
+
         this.add(titleLabel);
-
+        this.add(displayMaze);
     };
-
 }
