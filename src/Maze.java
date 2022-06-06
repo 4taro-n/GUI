@@ -13,11 +13,11 @@ public class Maze implements Comparable<Maze>, Serializable {
 
     private String dateEdited;
 
-    private int mazeID;
+    private String mazeID;
 
     public Maze(){}
 
-    public Maze(String mazeName, String author, int mazeID, String dateCreated, String dateEdited){
+    public Maze(String mazeName, String author, String mazeID, String dateCreated, String dateEdited){
         this.mazeName = mazeName;
         this.author = author;
         this.mazeID = mazeID;
@@ -57,11 +57,11 @@ public class Maze implements Comparable<Maze>, Serializable {
         this.dateEdited = dateEdited;
     }
 
-    public int getMazeID(){
+    public String getMazeID(){
         return mazeID;
     }
 
-    public void setMazeID(int mazeID){
+    public void setMazeID(String mazeID){
         this.mazeID = mazeID;
     }
 
