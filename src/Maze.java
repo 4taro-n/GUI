@@ -1,7 +1,10 @@
+import java.io.Serial;
 import java.io.Serializable;
 
 public class Maze implements Comparable<Maze>, Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 890514783655843673L;
     private String mazeName;
 
     private String author;
