@@ -3,6 +3,10 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.xml.transform.ErrorListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.*;
+import java.text.*;
 
 
 /**
@@ -30,6 +34,7 @@ public class ButtonPanel extends JPanel {
     JButton buttonSolution;
     JButton buttonSave;
 
+    SearchMazeData data;
     /**
      * This constructor is used to made up base of button panel
      */
@@ -116,12 +121,7 @@ public class ButtonPanel extends JPanel {
         //buttonStart
         buttonStart = new JButton("Start");
         buttonStart.setBounds(30,400,100,40);
-        buttonStart.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
 
         //buttonSolution
         buttonSolution = new JButton("Solution");
@@ -166,6 +166,14 @@ public class ButtonPanel extends JPanel {
 //    }
 
     /**
+     * You can add the listener to the Button here.
+     * @param listener
+     */
+    private void addButtonListeners(ActionListener listener){
+
+    }
+
+    /**
      * This method is display error message in the case the maze is not solvable
      */
     private void ErrorListener() {
@@ -173,4 +181,37 @@ public class ButtonPanel extends JPanel {
                 "Error", JOptionPane.ERROR_MESSAGE);
     }
 
+    private class ButtonListener implements ActionListener{
+
+        Date now = new Date();
+        DateFormat d = DateFormat.getDateInstance();
+        String str = d.format(now);
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton source = (JButton) e.getSource();
+
+            if(source == buttonStart){
+                startPressed();
+            }else if (source == buttonSave){
+                savePressed();
+            }
+        }
+        private void startPressed(){
+
+        }
+        private void savePressed(){
+              if(textFieldTitle.getText() != null){
+                  Maze m = new Maze(textFieldTitle.getText(), textFieldAuthor.getText(), "1", str,str);
+                  data.add(m);
+              }
+        }
+
+        private class ClosingListener extends WindowAdapter{
+
+            public void windowClosing(WindowEvent e){
+                data.persist();
+                System.exit(0);
+            }
+        }
+    }
 }

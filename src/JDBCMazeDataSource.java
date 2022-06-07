@@ -19,9 +19,9 @@ public class JDBCMazeDataSource implements MazeDataSource {
 
     private static final String GET_NAMES = "SELECT mazeName FROM maze";
 
-    private static final String GET_MAZE = "SELECT * FROM maze WHERE nameName=?";
+    private static final String GET_MAZE = "SELECT * FROM maze WHERE mazeName=?";
 
-    private static final String DELETE_MAZE = "DELETE FROM maze WHERE nameName=?";
+    private static final String DELETE_MAZE = "DELETE FROM maze WHERE mazeName=?";
 
     private static final String COUNT_ROWS = "SELECT COUNT(*) FROM maze";
 

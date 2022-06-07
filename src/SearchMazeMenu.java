@@ -1,9 +1,6 @@
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.Color;
-import javax.swing.JButton;
-import javax.swing.JList;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import java.util.Collections;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -20,6 +17,8 @@ public class SearchMazeMenu extends JPanel {
     JButton buttonSearch;
     JButton buttonSort;
     JList<Title> listMazeTitle;
+
+    JList mazeList;
     CustomListModel<Title> listModel;
     java.util.List<Title> mazeTitles  = new ArrayList<>();
 
@@ -73,14 +72,15 @@ public class SearchMazeMenu extends JPanel {
         });
 
         //List for displaying the list in the database
-        listMazeTitle = new JList<>();
-        mazeTitles = new ArrayList<>();
+       /* listMazeTitle = new JList<>();
         listMazeTitle.setPreferredSize(new Dimension(400, 400));
         listModel = new CustomListModel<Title>(mazeTitles);
-        listMazeTitle.setModel(listModel);
+        listMazeTitle.setModel(listModel);*/
+
+
 
         //Add item in the database
-        listModel.addElement(new Title("Maze Title List"));
+      //  listModel.addElement(new Title("Maze Title List"));
 
         //Button for exporting image as JPEG(there is no features at this stage)
         buttonExport = new JButton("Export as JPEG");
@@ -101,9 +101,29 @@ public class SearchMazeMenu extends JPanel {
         this.add(buttonAdd);
         this.add(buttonSearch);
         this.add(buttonSort);
-        this.add(listMazeTitle);
+        this.add(makeMazeListPane());
+       // this.add(listMazeTitle);
         this.add(buttonExport);
         this.add(buttonModify);
+
+    }
+
+    /**
+     * New list for Mazes.
+     * @return scroller list
+     */
+    private JScrollPane makeMazeListPane(){
+        mazeList = new JList(data.getModel());
+
+        JScrollPane scroller = new JScrollPane(mazeList);
+        scroller.setViewportView(mazeList);
+        scroller
+                .setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scroller
+                .setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scroller.setPreferredSize(new Dimension(400, 400));
+
+        return scroller;
     }
 
     /**
@@ -111,8 +131,9 @@ public class SearchMazeMenu extends JPanel {
      */
     private void addMazeTitle() {
         String mazeTitle = JOptionPane.showInputDialog(this, "Enter maze Title");
-        if(mazeTitle != null) {
-            listModel.addElement(new Title(mazeTitle));
+        if(mazeTitle != null && !mazeTitle.equals("")) {
+            Maze m = new Maze(mazeTitle, "Unknown", "Unknown", "Unknown","Unknown");
+            data.add(m);
         }
     }
 
@@ -154,5 +175,6 @@ public class SearchMazeMenu extends JPanel {
         }
 
     }
+
 
 }
