@@ -1,6 +1,5 @@
 import javax.swing.JPanel;
 import java.awt.Color;
-import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JList;
 import java.util.ArrayList;
@@ -9,7 +8,6 @@ import java.util.Collections;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
-import javax.swing.JScrollPane;
 import java.awt.FlowLayout;
 
 /**
@@ -34,8 +32,11 @@ public class SearchMazeMenu extends JPanel {
 
     /**
      * This constructor is used to made up of base of database menu panel
+     *
+     * @param data The underlying data/model class the UI needs.
      */
-    SearchMazeMenu() {
+    SearchMazeMenu(SearchMazeData data) {
+        this.data =data;
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 10,10));
         this.setBackground(Color.gray);
     }
