@@ -115,6 +115,7 @@ public class mazeGenerator extends Canvas {
 
     }
 
+
 //    public static void main(String[] args){
 //        mazeGenerator mazeGen = new mazeGenerator(30,30,10,10);
 //        mazeGen.generate();

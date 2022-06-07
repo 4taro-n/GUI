@@ -1,10 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * This class is used for displaying generated maze puzzle
  */
-public class MazePanel extends JPanel {
+public class MazePanel extends JPanel implements ActionListener {
     private static final long serialVersionUID = 1L;
 
     JLabel titleLabel;
@@ -48,4 +50,9 @@ public class MazePanel extends JPanel {
         this.add(titleLabel);
         this.add(displayMaze);
     };
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
 }
