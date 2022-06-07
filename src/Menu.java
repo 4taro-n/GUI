@@ -96,7 +96,7 @@ public class Menu extends JFrame {
     public void preparePanels() {
         generateMazeMenuPanel = new GenerateMazeMenu();
         this.add(generateMazeMenuPanel, "Generate Mane Menu");
-        searchMazeManuPanel = new SearchMazeMenu();
+        searchMazeManuPanel = new SearchMazeMenu( new SearchMazeData());
         this.add(searchMazeManuPanel, "Search Maze Menu");
         this.pack();
     };
@@ -107,8 +107,6 @@ public class Menu extends JFrame {
     public void prepareComponents() {
         searchMazeManuPanel.prepareComponents();
         generateMazeMenuPanel.prepareComponents();
-
-
     }
 
     /**
