@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.xml.transform.ErrorListener;
 
+
 /**
  * This class is made up operation board with button and spinner.
  * The panel is part of Generate maze panel.
@@ -115,6 +116,12 @@ public class ButtonPanel extends JPanel {
         //buttonStart
         buttonStart = new JButton("Start");
         buttonStart.setBounds(30,400,100,40);
+        buttonStart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         //buttonSolution
         buttonSolution = new JButton("Solution");

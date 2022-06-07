@@ -14,6 +14,7 @@ public class GenerateMazeMenu extends JPanel {
     ButtonPanel buttonPanel;
     MazePanel mazePanel;
 
+
     /**
      * This constructor is used to made up of base of generate maze menu
      */
@@ -22,7 +23,6 @@ public class GenerateMazeMenu extends JPanel {
 
         mazePanel = new MazePanel();
         buttonPanel = new ButtonPanel();
-
         this.add(mazePanel, BorderLayout.CENTER);
         this.add(buttonPanel, BorderLayout.WEST);
     }
@@ -38,5 +38,6 @@ public class GenerateMazeMenu extends JPanel {
 
         mazePanel.prepareComponents();
         buttonPanel.prepareComponents();
+
     }
 }
