@@ -30,6 +30,8 @@ public class SearchMazeMenu extends JPanel {
 
     ModifyMazewithData modifyMazewithData;
 
+    SearchMazeData data;
+
     /**
      * This constructor is used to made up of base of database menu panel
      */
