@@ -9,6 +9,7 @@ public class MazePanel extends JPanel {
 
     JLabel titleLabel;
     JPanel displayMaze;
+    public static final boolean  isMazeDisplayed = false;
 
     /**
      * This constructor is used to made up base of maze panel
@@ -16,7 +17,7 @@ public class MazePanel extends JPanel {
     MazePanel() {
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 10,10));
 //        this.setPreferredSize(new Dimension(600, 600));
-        this.setBackground(Color.yellow);
+        this.setBackground(Color.blue);
 //        this.setLayout(null);
     }
 
@@ -31,6 +32,18 @@ public class MazePanel extends JPanel {
         displayMaze = new JPanel();
         displayMaze.setPreferredSize(new Dimension(500, 500));
         displayMaze.setBackground(Color.white);
+
+        if(isMazeDisplayed){
+            mazeGenerator mazeGen = new mazeGenerator(50,50,25,25);
+            mazeGen.generate();
+            mazeGen.setSize(500,500);
+
+            displayMaze.add(mazeGen);
+            displayMaze.setSize(830,650);
+            displayMaze.setVisible(true);
+        }
+
+
 
         this.add(titleLabel);
         this.add(displayMaze);
