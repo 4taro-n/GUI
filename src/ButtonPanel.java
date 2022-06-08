@@ -34,6 +34,9 @@ public class ButtonPanel extends JPanel {
     JButton buttonSolution;
     JButton buttonSave;
 
+
+
+
     SearchMazeData data;
     /**
      * This constructor is used to made up base of button panel
@@ -137,6 +140,9 @@ public class ButtonPanel extends JPanel {
         buttonSave.setBounds(30,500,100,40);
 
 
+
+
+
         this.add(spinnerRow);
         this.add(labelRow);
         this.add(spinnerColumn);
@@ -182,7 +188,6 @@ public class ButtonPanel extends JPanel {
     }
 
     private class ButtonListener implements ActionListener{
-
         Date now = new Date();
         DateFormat d = DateFormat.getDateInstance();
         String str = d.format(now);

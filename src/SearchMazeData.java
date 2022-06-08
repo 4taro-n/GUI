@@ -21,9 +21,12 @@ public class SearchMazeData {
         }
     }
 
+
     public void add(Maze m){
         if(!listModel.contains(m.getMazeName())){
-            listModel.addElement(m.getMazeName());
+            String maze =  m.getMazeName();
+
+            listModel.addElement(maze);
             mazeData.addMaze(m);
         }
     }

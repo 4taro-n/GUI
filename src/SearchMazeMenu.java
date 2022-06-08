@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.Date;
 
 /**
  * This class is made up of database menu panel
@@ -16,6 +19,8 @@ public class SearchMazeMenu extends JPanel {
     JButton buttonAdd;
     JButton buttonSearch;
     JButton buttonSort;
+
+    JButton buttonDelete;
     JList<Title> listMazeTitle;
 
     JList mazeList;
@@ -27,6 +32,10 @@ public class SearchMazeMenu extends JPanel {
 
     ModifyMazewithData modifyMazewithData;
 
+    JTextField mazeIDF;
+    JTextField authorF;
+    JTextField DateCreatedF;
+    JTextField DateEditedF;
     SearchMazeData data;
 
     /**
@@ -76,9 +85,6 @@ public class SearchMazeMenu extends JPanel {
         listMazeTitle.setPreferredSize(new Dimension(400, 400));
         listModel = new CustomListModel<Title>(mazeTitles);
         listMazeTitle.setModel(listModel);*/
-
-
-
         //Add item in the database
       //  listModel.addElement(new Title("Maze Title List"));
 
@@ -97,6 +103,16 @@ public class SearchMazeMenu extends JPanel {
         modifyMazewithData = new ModifyMazewithData();
         buttonModify.addActionListener(modifyMazewithData);
 
+        buttonDelete = new JButton("Delete Maze");
+        buttonDelete.setBounds(0, -300, 150, 30);
+        buttonDelete.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                if(mazeList != null) {
+                    deletePressed();
+                }
+            }
+        });
+
         //Add all features
         this.add(buttonAdd);
         this.add(buttonSearch);
@@ -105,6 +121,7 @@ public class SearchMazeMenu extends JPanel {
        // this.add(listMazeTitle);
         this.add(buttonExport);
         this.add(buttonModify);
+        this.add(buttonDelete);
 
     }
 
@@ -117,10 +134,8 @@ public class SearchMazeMenu extends JPanel {
 
         JScrollPane scroller = new JScrollPane(mazeList);
         scroller.setViewportView(mazeList);
-        scroller
-                .setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scroller
-                .setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scroller.setPreferredSize(new Dimension(400, 400));
 
         return scroller;
@@ -165,6 +180,7 @@ public class SearchMazeMenu extends JPanel {
         }
     }
 
+
     /**
      * This method is used to transition to generate Maze page with user selected data(just trsnsition to generation panel at this stage)
      */
@@ -174,6 +190,18 @@ public class SearchMazeMenu extends JPanel {
             Main.mainWindow.setFrontScreenAndFocus(ScreenMode.GENERATE);
         }
 
+    }
+
+    private void deletePressed(){
+        int index = mazeList.getSelectedIndex();
+        data.remove(mazeList.getSelectedValue());
+        index--;
+        if (index == -1) {
+            if (data.getSize() != 0) {
+                index = 0;
+            }
+        }
+        mazeList.setSelectedIndex(index);
     }
 
 
