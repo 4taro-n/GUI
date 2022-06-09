@@ -24,9 +24,7 @@ public class SearchMazeData {
 
     public void add(Maze m){
         if(!listModel.contains(m.getMazeName())){
-            String maze =  m.getMazeName();
-
-            listModel.addElement(maze);
+            listModel.addElement(m.getMazeName());
             mazeData.addMaze(m);
         }
     }

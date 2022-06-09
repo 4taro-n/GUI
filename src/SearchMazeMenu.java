@@ -2,11 +2,12 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.util.Date;
+
+import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 
 /**
  * This class is made up of database menu panel
@@ -44,6 +45,8 @@ public class SearchMazeMenu extends JPanel {
         this.data =data;
         this.setLayout(new BorderLayout());
         this.setBackground(Color.gray);
+
+
     }
 
     /**
@@ -102,6 +105,7 @@ public class SearchMazeMenu extends JPanel {
 
         buttonDelete = new JButton("Delete Maze");
         buttonDelete.setBounds(0, 0, 150, 30);
+        buttonDelete.setEnabled(false);
         buttonDelete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if(mazeList != null) {
@@ -109,7 +113,6 @@ public class SearchMazeMenu extends JPanel {
                 }
             }
         });
-
 
         JPanel rightButtons = new JPanel();
         rightButtons.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -124,8 +127,6 @@ public class SearchMazeMenu extends JPanel {
         topButtons.add(buttonSearch );
         topButtons.add(buttonSort);
 
-
-
         JPanel rightPart = new JPanel();
         rightPart.setLayout(new BorderLayout());
 
@@ -138,18 +139,12 @@ public class SearchMazeMenu extends JPanel {
         rightPart.add(rightTop, BorderLayout.NORTH);
         rightPart.setPreferredSize(new Dimension(200, 400));
 
-
-
-
-
-
-
-
         this.add(topButtons, BorderLayout.NORTH);
         this.add(rightPart, BorderLayout.EAST);
         this.add(makeMazeListPane(), BorderLayout.CENTER);
 
-
+        addMazeListListener(new mazeListListener());
+        addClosingListener(new ClosingListener());
     }
 
     /**
@@ -173,6 +168,14 @@ public class SearchMazeMenu extends JPanel {
         authorF.setEditable(editable);
         DateEditedF.setEditable(editable);
         DateCreatedF.setEditable(editable);
+    }
+    private void display(Maze m){
+        if(m != null){
+            mazeIDF.setText(m.getMazeID());
+            authorF.setText(m.getAuthor());
+            DateEditedF.setText(m.getDateEdited());
+            DateCreatedF.setText(m.getDateCreated());
+        }
     }
     private JPanel mazeDetailsPanel(){
         JPanel detailsPanel = new JPanel();
@@ -200,9 +203,6 @@ public class SearchMazeMenu extends JPanel {
         detailsPanel.add(DateEdited);
         detailsPanel.add(DateEditedF);
 
-
-
-
         return detailsPanel;
     }
 
@@ -216,6 +216,7 @@ public class SearchMazeMenu extends JPanel {
             Maze m = new Maze(mazeTitle, "Unknown", "Unknown", "Unknown","Unknown");
             data.add(m);
         }
+        checkListSize();
     }
 
     /**
@@ -246,7 +247,16 @@ public class SearchMazeMenu extends JPanel {
         }
     }
 
+    private void checkListSize(){
+         buttonDelete.setEnabled(data.getSize() != 0);
+    }
+    private void addMazeListListener(ListSelectionListener listener){
+        mazeList.addListSelectionListener(listener);
+    }
 
+    private void addClosingListener(WindowListener listener) {
+        addWindowListener(listener);
+    }
     /**
      * This method is used to transition to generate Maze page with user selected data(just trsnsition to generation panel at this stage)
      */
@@ -255,7 +265,6 @@ public class SearchMazeMenu extends JPanel {
         public void actionPerformed(ActionEvent e) {
             Main.mainWindow.setFrontScreenAndFocus(ScreenMode.GENERATE);
         }
-
     }
 
     private void deletePressed(){
@@ -268,7 +277,30 @@ public class SearchMazeMenu extends JPanel {
             }
         }
         mazeList.setSelectedIndex(index);
+        checkListSize();
+    }
+    private void clearFields() {
+        mazeIDF.setText("");
+        authorF.setText("");
+        DateCreatedF.setText("");
+        DateEditedF.setText("");
+    }
+    private class mazeListListener implements ListSelectionListener{
+        public void valueChanged(ListSelectionEvent e) {
+            if (mazeList.getSelectedValue() != null
+                    && !mazeList.getSelectedValue().equals("")) {
+                display(data.get(mazeList.getSelectedValue()));
+                buttonDelete.setEnabled(true);
+            }else{
+                clearFields();
+            }
+        }
     }
 
-
+    private class ClosingListener extends WindowAdapter{
+        public void windowClosing(WindowEvent e){
+            data.persist();
+            System.exit(0);
+        }
+    }
 }

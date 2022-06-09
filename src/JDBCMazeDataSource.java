@@ -27,7 +27,6 @@ public class JDBCMazeDataSource implements MazeDataSource {
 
     private static final String COUNT_ROWS = "SELECT COUNT(*) FROM maze";
 
-    private static final String GET_MAZES = "SELECT * FROM maze";
 
     private Connection connection;
 
@@ -36,8 +35,6 @@ public class JDBCMazeDataSource implements MazeDataSource {
     private PreparedStatement getNameList;
 
     private PreparedStatement getMaze;
-
-    private PreparedStatement getMazeList;
 
     private PreparedStatement deleteMaze;
 
@@ -53,7 +50,6 @@ public class JDBCMazeDataSource implements MazeDataSource {
             getMaze = connection.prepareStatement(GET_MAZE);
             deleteMaze = connection.prepareStatement(DELETE_MAZE);
             rowCount = connection.prepareStatement(COUNT_ROWS);
-            getMazeList = connection.prepareStatement(GET_MAZES);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -88,11 +84,10 @@ public class JDBCMazeDataSource implements MazeDataSource {
             m.setAuthor(rs.getString("author"));
             m.setDateCreated(rs.getString("mazeCreated"));
             m.setDateEdited(rs.getString("mazeEdited"));
-
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return null;
+        return m;
     }
 
     @Override
@@ -146,26 +141,7 @@ public class JDBCMazeDataSource implements MazeDataSource {
         return mazes;
     }
 
-    @Override
-    public Set<String> mazeSet() {
-        Set<String> mazes = new TreeSet<String>();
-        String maze;
-        ResultSet rs = null;
 
-        try{
-            rs = getMazeList.executeQuery();
-            while(rs.next()){
-                 maze = "MazeName:" +rs.getString("mazeName")+ " " + "Author:" + rs.getString("author") + " " + "MazeID:"
-                         + rs.getString("mazeID")  + " " + "DateCreated:"+ rs.getString("mazeCreated")
-                                 + " "+ "DateEdited:" + rs.getString("mazeEdited");
-
-                 mazes.add(maze);
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return mazes;
-    }
 
 
 }

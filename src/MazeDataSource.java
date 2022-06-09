@@ -18,6 +18,6 @@ public interface MazeDataSource {
      */
     Set<String> mazeNameSet();
 
-    Set<String> mazeSet();
+
 
 }
