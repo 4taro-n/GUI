@@ -1,13 +1,11 @@
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.awt.Color;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.util.Date;
 
 /**
@@ -37,7 +35,6 @@ public class SearchMazeMenu extends JPanel {
     JTextField DateCreatedF;
     JTextField DateEditedF;
     SearchMazeData data;
-
     /**
      * This constructor is used to made up of base of database menu panel
      *
@@ -45,7 +42,7 @@ public class SearchMazeMenu extends JPanel {
      */
     SearchMazeMenu(SearchMazeData data) {
         this.data =data;
-        this.setLayout(new FlowLayout(FlowLayout.CENTER, 10,10));
+        this.setLayout(new BorderLayout());
         this.setBackground(Color.gray);
     }
 
@@ -104,7 +101,7 @@ public class SearchMazeMenu extends JPanel {
         buttonModify.addActionListener(modifyMazewithData);
 
         buttonDelete = new JButton("Delete Maze");
-        buttonDelete.setBounds(0, -300, 150, 30);
+        buttonDelete.setBounds(0, 0, 150, 30);
         buttonDelete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if(mazeList != null) {
@@ -113,15 +110,45 @@ public class SearchMazeMenu extends JPanel {
             }
         });
 
+
+        JPanel rightButtons = new JPanel();
+        rightButtons.setLayout(new FlowLayout(FlowLayout.LEFT));
+        rightButtons.add(buttonModify);
+        rightButtons.add(buttonExport);
+        rightButtons.add(buttonDelete);
+
         //Add all features
-        this.add(buttonAdd);
-        this.add(buttonSearch);
-        this.add(buttonSort);
-        this.add(makeMazeListPane());
-       // this.add(listMazeTitle);
-        this.add(buttonExport);
-        this.add(buttonModify);
-        this.add(buttonDelete);
+        JPanel topButtons = new JPanel();
+        topButtons.setLayout(new FlowLayout(FlowLayout.LEFT));
+        topButtons.add(buttonAdd );
+        topButtons.add(buttonSearch );
+        topButtons.add(buttonSort);
+
+
+
+        JPanel rightPart = new JPanel();
+        rightPart.setLayout(new BorderLayout());
+
+        JPanel rightTop = new JPanel();
+        rightTop.setLayout(new BorderLayout());
+        rightTop.add(mazeDetailsPanel());
+
+        rightPart.add(rightButtons, BorderLayout.SOUTH);
+        rightButtons.setPreferredSize(new Dimension(200, 400));
+        rightPart.add(rightTop, BorderLayout.NORTH);
+        rightPart.setPreferredSize(new Dimension(200, 400));
+
+
+
+
+
+
+
+
+        this.add(topButtons, BorderLayout.NORTH);
+        this.add(rightPart, BorderLayout.EAST);
+        this.add(makeMazeListPane(), BorderLayout.CENTER);
+
 
     }
 
@@ -136,10 +163,49 @@ public class SearchMazeMenu extends JPanel {
         scroller.setViewportView(mazeList);
         scroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scroller.setPreferredSize(new Dimension(400, 400));
+        scroller.setPreferredSize(new Dimension(200, 400));
 
         return scroller;
     }
+
+    private void setFieldsEditable(boolean editable){
+        mazeIDF.setEditable(editable);
+        authorF.setEditable(editable);
+        DateEditedF.setEditable(editable);
+        DateCreatedF.setEditable(editable);
+    }
+    private JPanel mazeDetailsPanel(){
+        JPanel detailsPanel = new JPanel();
+
+        detailsPanel.setLayout(new GridLayout(4, 2, 0, 5));
+
+
+        mazeIDF = new JTextField(5);
+        authorF= new JTextField(5);
+        DateCreatedF= new JTextField(5);
+        DateEditedF= new JTextField(5);
+
+        setFieldsEditable(false);
+
+        JLabel authorName = new JLabel("Author");
+        detailsPanel.add(authorName);
+        detailsPanel.add(authorF);
+        JLabel idLabel = new JLabel("MazeID");
+        detailsPanel.add(idLabel);
+        detailsPanel.add(mazeIDF);
+        JLabel DateCreated = new JLabel("Date Created");
+        detailsPanel.add(DateCreated);
+        detailsPanel.add(DateCreatedF);
+        JLabel DateEdited = new JLabel("Date Edited");
+        detailsPanel.add(DateEdited);
+        detailsPanel.add(DateEditedF);
+
+
+
+
+        return detailsPanel;
+    }
+
 
     /**
      * This methods is used to open a new pane and add item to database(just maze title list at this stage) by user input
