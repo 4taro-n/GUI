@@ -38,7 +38,7 @@ public class GenerateMazeMenu extends JPanel {
         generateMazeLabel.setBounds(100, 200, 100,30);
         this.add(generateMazeLabel);
 
-        mazePanel.prepareComponents();
+        //mazePanel.prepareComponents();
         buttonPanel.prepareComponents();
 
     }

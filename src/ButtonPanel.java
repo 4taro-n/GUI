@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -13,6 +15,8 @@ import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
  */
 public class ButtonPanel extends JPanel {
     private static final long serialVersionUID = 1L;
+
+    static Game game = new Game();
 
     JSpinner spinnerRow;
     JSpinner spinnerColumn;
@@ -32,6 +36,11 @@ public class ButtonPanel extends JPanel {
     JButton buttonSolution;
     JButton buttonSave;
     SearchMazeData data;
+    StartGenerate startGenerate;
+
+    static int row;
+    static int column;
+
     /**
      * This constructor is used to made up base of button panel
      */
@@ -52,11 +61,15 @@ public class ButtonPanel extends JPanel {
         SpinnerNumberModel model = new SpinnerNumberModel(31, 4, 100, 2);
         spinnerRow = new JSpinner(model);
         spinnerRow.setBounds(80, 30, 100, 30);
-        //おまけ：直接編集を禁止する
-//        JSpinner.NumberEditor editor = new JSpinner.NumberEditor(spinnerRow, "#0");
-//        spinnerRow.setEditor(editor);
-//        JFormattedTextField ftext = editor.getTextField();
-//        ftext.setEditable(false);
+        spinnerRow.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+//                try {
+//                    spinnerRow.commitEdit();
+//                } catch ( java.text.ParseException ignored) { }
+                row = (int) spinnerRow.getValue();
+                System.out.println(row);
+            }
+        });
 
         labelRow = new JLabel("row");
         labelRow.setBounds(30,30,100,30);
@@ -66,6 +79,13 @@ public class ButtonPanel extends JPanel {
         spinnerColumn = new JSpinner(model03);
         spinnerColumn.setBounds(80, 60, 100, 30);
 
+        spinnerColumn.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                column = (int) spinnerColumn.getValue();
+                System.out.println(column);
+            }
+        });
+
         //column-label
         labelColumn = new JLabel("column");
         labelColumn.setBounds(30,60,100,30);
@@ -74,6 +94,13 @@ public class ButtonPanel extends JPanel {
         SpinnerNumberModel model02 = new SpinnerNumberModel(50, 0, 100, 1);
         spinnerDifficulity = new JSpinner(model02);
         spinnerDifficulity.setBounds(30, 230, 100, 30);
+
+        spinnerDifficulity.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+
+                System.out.println(spinnerDifficulity);
+            }
+        });
 
         labelDifficulity = new JLabel("Difficulity(Lv0-Lv100)");
         labelDifficulity.setBounds(30,200,150,30);
@@ -121,6 +148,8 @@ public class ButtonPanel extends JPanel {
         //buttonStart
         buttonStart = new JButton("Start");
         buttonStart.setBounds(30,400,100,40);
+        startGenerate = new StartGenerate();
+        buttonStart.addActionListener(startGenerate);
 
 
         //buttonSolution
@@ -157,6 +186,15 @@ public class ButtonPanel extends JPanel {
         this.add(spinnerDifficulity);
         this.add(labelDifficulity);
 
+        try {
+            spinnerRow.commitEdit();
+            spinnerColumn.commitEdit();
+        } catch ( java.text.ParseException ignored) { }
+        row = (int) this.spinnerRow.getValue();
+        column = (int) this.spinnerColumn.getValue();
+        System.out.println(row);
+        System.out.println(column);
+
 
     }
 
@@ -191,6 +229,18 @@ public class ButtonPanel extends JPanel {
         public void windowClosing(WindowEvent e){
             data.persist();
             System.exit(0);
+        }
+    }
+
+    private class StartGenerate implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            System.out.println(row);
+            //menu.add(new MazePanel());
+            //menu.setVisible(true);
+            //menu.setVisible(true);
+            //menu.setVisible(true);
+            game.reset();
+            game.start();
         }
     }
 
