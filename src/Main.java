@@ -5,7 +5,7 @@ public class Main {
     static Menu mainWindow;
     public static void main(String[] args) {
         //prepare menu
-        mainWindow = new Menu();
+        mainWindow = new Menu(new SearchMazeData());
         mainWindow.prepareMenu();
         //create panels
         mainWindow.preparePanels();

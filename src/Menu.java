@@ -26,10 +26,12 @@ public class Menu extends JFrame {
     MenuBarToGenearateListener menuBarToGenearateListener;
     MenuBarToSearchListener menuBarToSearchListener;
 
+    SearchMazeData data;
+
     /**
      * This contractor is created base of frame
      */
-    Menu() {
+    Menu(SearchMazeData data) {
         //title
         this.setTitle("");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -43,6 +45,7 @@ public class Menu extends JFrame {
         //to be auto size
         this.pack();
         this.setLocationRelativeTo(null);
+        this.data = data;
         //this.setLocation(450, 50);
     }
 
@@ -94,7 +97,7 @@ public class Menu extends JFrame {
      * This method is used for call two menu elements to display
      */
     public void preparePanels() {
-        generateMazeMenuPanel = new GenerateMazeMenu();
+        generateMazeMenuPanel = new GenerateMazeMenu(new SearchMazeData());
         this.add(generateMazeMenuPanel, "Generate Mane Menu");
         searchMazeManuPanel = new SearchMazeMenu( new SearchMazeData());
         this.add(searchMazeManuPanel, "Search Maze Menu");

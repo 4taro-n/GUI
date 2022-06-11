@@ -14,17 +14,19 @@ public class GenerateMazeMenu extends JPanel {
     ButtonPanel buttonPanel;
     MazePanel mazePanel;
 
+    SearchMazeData data;
 
     /**
      * This constructor is used to made up of base of generate maze menu
      */
-    GenerateMazeMenu() {
+    GenerateMazeMenu(SearchMazeData data) {
         this.setLayout(new BorderLayout());
 
         mazePanel = new MazePanel();
-        buttonPanel = new ButtonPanel();
+        buttonPanel = new ButtonPanel(new SearchMazeData());
         this.add(mazePanel, BorderLayout.CENTER);
         this.add(buttonPanel, BorderLayout.WEST);
+        this.data  = data;
     }
 
     /**

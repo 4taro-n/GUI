@@ -23,7 +23,6 @@ public class SearchMazeMenu extends JPanel {
     JList<Title> listMazeTitle;
 
     JList mazeList;
-    CustomListModel<Title> listModel;
     java.util.List<Title> mazeTitles  = new ArrayList<>();
 
     JButton buttonExport;
@@ -151,7 +150,7 @@ public class SearchMazeMenu extends JPanel {
      * New list for Mazes.
      * @return scroller list
      */
-    private JScrollPane makeMazeListPane(){
+    public JScrollPane makeMazeListPane(){
         mazeList = new JList(data.getModel());
 
         JScrollPane scroller = new JScrollPane(mazeList);
@@ -162,6 +161,8 @@ public class SearchMazeMenu extends JPanel {
 
         return scroller;
     }
+
+
 
     private void setFieldsEditable(boolean editable){
         mazeIDF.setEditable(editable);
@@ -223,8 +224,10 @@ public class SearchMazeMenu extends JPanel {
      * This methods is used to open a new pane and sort the items displying by user input
      */
     private void sortMazeTitle() {
-        Collections.sort(mazeTitles);
-        listModel.fireDateChanged();
+        //Collections.sort(mazeTitles);
+        //listModel.fireDateChanged();
+
+
     }
 
     /**
@@ -303,4 +306,6 @@ public class SearchMazeMenu extends JPanel {
             System.exit(0);
         }
     }
+
+
 }

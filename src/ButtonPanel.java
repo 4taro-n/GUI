@@ -1,12 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.xml.transform.ErrorListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.util.*;
 import java.text.*;
+
+import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 
 
 /**
@@ -33,18 +31,17 @@ public class ButtonPanel extends JPanel {
     JButton buttonStart;
     JButton buttonSolution;
     JButton buttonSave;
-
-
-
-
     SearchMazeData data;
     /**
      * This constructor is used to made up base of button panel
      */
-    public ButtonPanel() {
+    public ButtonPanel(SearchMazeData data) {
         this.setPreferredSize(new Dimension(200, 600));
         this.setBackground(Color.gray);
         this.setLayout(null);
+        this.data = data;
+
+
     }
 
     /**
@@ -87,7 +84,7 @@ public class ButtonPanel extends JPanel {
         textFieldAuthor.setCaretColor(Color.BLUE);
         textFieldAuthor.setFont(new Font(null,Font.PLAIN,15));
         //デフォルトで文字を入れておく
-        textFieldAuthor.setText("ex) Name");
+        textFieldAuthor.setText("");
         //textField.setEditable(false);
 
         //Author-label
@@ -100,7 +97,7 @@ public class ButtonPanel extends JPanel {
         textFieldTitle.setCaretColor(Color.BLUE);
         textFieldTitle.setFont(new Font(null,Font.PLAIN,15));
         //デフォルトで文字を入れておく
-        textFieldTitle.setText("ex) Maze title");
+        textFieldTitle.setText("");
         //textField.setEditable(false);
 
         //textFieldTitle-label
@@ -141,8 +138,8 @@ public class ButtonPanel extends JPanel {
 
 
 
-
-
+        addClosingListener(new ClosingListener());
+        addButtonListeners(new ButtonListener());
         this.add(spinnerRow);
         this.add(labelRow);
         this.add(spinnerColumn);
@@ -176,7 +173,7 @@ public class ButtonPanel extends JPanel {
      * @param listener
      */
     private void addButtonListeners(ActionListener listener){
-
+        buttonSave.addActionListener(listener);
     }
 
     /**
@@ -186,36 +183,34 @@ public class ButtonPanel extends JPanel {
         JOptionPane.showMessageDialog(this, "This maze is not solvable!",
                 "Error", JOptionPane.ERROR_MESSAGE);
     }
+    private void addClosingListener(WindowListener listener){
+        addWindowListener(listener);
+    }
+    private class ClosingListener extends WindowAdapter{
 
-    private class ButtonListener implements ActionListener{
+        public void windowClosing(WindowEvent e){
+            data.persist();
+            System.exit(0);
+        }
+    }
+
+    private class ButtonListener implements ActionListener {
         Date now = new Date();
         DateFormat d = DateFormat.getDateInstance();
         String str = d.format(now);
+
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton source = (JButton) e.getSource();
 
-            if(source == buttonStart){
-                startPressed();
-            }else if (source == buttonSave){
+            if (source == buttonSave) {
                 savePressed();
             }
         }
-        private void startPressed(){
-
-        }
-        private void savePressed(){
-              if(textFieldTitle.getText() != null){
-                  Maze m = new Maze(textFieldTitle.getText(), textFieldAuthor.getText(), "1", str,str);
-                  data.add(m);
-              }
-        }
-
-        private class ClosingListener extends WindowAdapter{
-
-            public void windowClosing(WindowEvent e){
-                data.persist();
-                System.exit(0);
+        private void savePressed() {
+            if ((textFieldTitle.getText() != null) && (textFieldAuthor.getText() != null)) {
+                Maze m = new Maze(textFieldTitle.getText(), textFieldAuthor.getText(), "1", str, str);
+                data.add(m);
             }
         }
     }
