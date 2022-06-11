@@ -15,7 +15,7 @@ public class Menu extends JFrame {
     //width of frame
     final int WIDTH = 800;
     //height of frame
-    final int HEIGHT = 600;
+    final int HEIGHT = 650;
 
     CardLayout layout = new CardLayout();
 
