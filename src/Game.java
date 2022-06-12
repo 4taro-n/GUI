@@ -1,3 +1,6 @@
+/**
+ * Starts and Resets maze
+ */
 public class Game {
 
     //generatorのインスタンス作成

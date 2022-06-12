@@ -1,3 +1,6 @@
+/**
+ * Gets and sets Maze Title
+ */
 public class Title implements Comparable<Title> {
     String mazeTitle;
 

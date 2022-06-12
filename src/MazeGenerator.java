@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Generates maze algorithm
+ */
 //迷路を生成するクラス、アニメーションのためにthreadを継承（thread.sleep）
 public class MazeGenerator extends Thread {
 
