@@ -1,6 +1,9 @@
 import java.io.Serial;
 import java.io.Serializable;
 
+/**
+ * Stores variables that hold maze information
+ */
 public class Maze implements Comparable<Maze>, Serializable {
 
     @Serial
