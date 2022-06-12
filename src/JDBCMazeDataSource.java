@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * Creating a class for retrieving data from database
+ */
 public class JDBCMazeDataSource implements MazeDataSource {
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS maze (" +
             "idx INTEGER PRIMARY KEY /*!40101 AUTO_INCREMENT */ NOT NULL UNIQUE," +
@@ -40,6 +43,9 @@ public class JDBCMazeDataSource implements MazeDataSource {
 
     private PreparedStatement rowCount;
 
+    /**
+     * Creating
+     */
     public JDBCMazeDataSource(){
         connection = DatabaseConnection.getInstance();
         try {

@@ -5,6 +5,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+
+/**
+ * For database connection
+ */
 public class DatabaseConnection {
     private static Connection instance = null;
 
@@ -32,6 +36,10 @@ public class DatabaseConnection {
         }
     }
 
+    /**
+     * create a connection instance for manipulation on the database.
+     * @return
+     */
     public static Connection getInstance(){
         if (instance == null) {
             new DatabaseConnection();

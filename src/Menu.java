@@ -61,6 +61,13 @@ public class Menu extends JFrame {
         JMenuItem menuitem2 = new JMenuItem("Search Maze");
         JMenuItem menuitem3 = new JMenuItem("Exit");
 
+        menuitem3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
         menuBarToGenearateListener = new MenuBarToGenearateListener();
         menuitem1.addActionListener(menuBarToGenearateListener);
 

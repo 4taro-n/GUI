@@ -28,7 +28,7 @@ public class SearchMazeData {
      */
     public void Update(){
         for (String mazeName: mazeData.mazeNameSet()){
-               if(mazeName != null && mazeName != ""){
+               if(mazeName != null && mazeName != "" && !listModel.contains(mazeName)){
                 listModel.addElement(mazeName);
                }
         }

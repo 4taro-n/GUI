@@ -71,7 +71,7 @@ public class SearchMazeMenu extends JPanel {
         });
 
         //Button for sort the item in list below of the panel
-        buttonSort = new JButton("Sort Titles");
+        buttonSort = new JButton("Update Titles");
         buttonSort.setBounds(650,50,150, 30);
         buttonSort.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -250,7 +250,7 @@ public class SearchMazeMenu extends JPanel {
      */
     private void searchMazeTitle() {
         String mazeTitle = JOptionPane.showInputDialog(this, "Enter person name to search for:");
-
+        mazeTitle = String.valueOf(data.getModel());
         if(mazeTitle == null) {
             return;
         }
