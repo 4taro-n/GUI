@@ -221,9 +221,18 @@ public class ButtonPanel extends JPanel {
         JOptionPane.showMessageDialog(this, "This maze is not solvable!",
                 "Error", JOptionPane.ERROR_MESSAGE);
     }
+
+    /**
+     * Closing listener for keep data.
+     * @param listener
+     */
     private void addClosingListener(WindowListener listener){
         addWindowListener(listener);
     }
+
+    /**
+     * Keep data
+     */
     private class ClosingListener extends WindowAdapter{
 
         public void windowClosing(WindowEvent e){
@@ -232,6 +241,9 @@ public class ButtonPanel extends JPanel {
         }
     }
 
+    /**
+     * For start to generate maze.
+     */
     private class StartGenerate implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             System.out.println(row);
@@ -244,11 +256,18 @@ public class ButtonPanel extends JPanel {
         }
     }
 
+    /**
+     * A subclass for the button action listener
+     */
     private class ButtonListener implements ActionListener {
         Date now = new Date();
         DateFormat d = DateFormat.getDateInstance();
         String str = d.format(now);
 
+        /**
+         * identify the button clicked
+         * @param e the event to be processed
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton source = (JButton) e.getSource();
@@ -257,6 +276,10 @@ public class ButtonPanel extends JPanel {
                 savePressed();
             }
         }
+
+        /**
+         * save method for saving current maze information
+         */
         private void savePressed() {
             data.Update();
             if ((textFieldAuthor.getText().trim().equals("") || textFieldAuthor.getText().length() == 0) || (textFieldTitle.getText().trim().equals("") || textFieldTitle.getText().length() == 0)) {
@@ -264,6 +287,8 @@ public class ButtonPanel extends JPanel {
             }else{
                 Maze m = new Maze(textFieldTitle.getText(), textFieldAuthor.getText(), "1", str, str);
                 data.add(m);
+                textFieldAuthor.setText("");
+                textFieldTitle.setText("");
                 System.out.println(data.getModel());
             }
         }

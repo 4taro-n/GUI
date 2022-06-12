@@ -163,13 +163,21 @@ public class SearchMazeMenu extends JPanel {
     }
 
 
-
+    /**
+     * Set fields uneditable just for showing data
+     * @param editable
+     */
     private void setFieldsEditable(boolean editable){
         mazeIDF.setEditable(editable);
         authorF.setEditable(editable);
         DateEditedF.setEditable(editable);
         DateCreatedF.setEditable(editable);
     }
+
+    /**
+     * Display the data that selected in the list.
+     * @param m
+     */
     private void display(Maze m){
         if(m != null){
             mazeIDF.setText(m.getMazeID());
@@ -178,6 +186,11 @@ public class SearchMazeMenu extends JPanel {
             DateCreatedF.setText(m.getDateCreated());
         }
     }
+
+    /**
+     * This is a panel for creating textFields and labels for showing data.
+     * @return a Panel;
+     */
     private JPanel mazeDetailsPanel(){
         JPanel detailsPanel = new JPanel();
 
@@ -252,13 +265,25 @@ public class SearchMazeMenu extends JPanel {
         }
     }
 
+    /**
+     * Check the size of the data and disable button when it's 0
+     */
     private void checkListSize(){
          buttonDelete.setEnabled(data.getSize() != 0);
     }
+
+    /**
+     * add mazelist listener
+     * @param listener
+     */
     private void addMazeListListener(ListSelectionListener listener){
         mazeList.addListSelectionListener(listener);
     }
 
+    /**
+     * add ClosingListener
+     * @param listener
+     */
     private void addClosingListener(WindowListener listener) {
         addWindowListener(listener);
     }
@@ -272,6 +297,9 @@ public class SearchMazeMenu extends JPanel {
         }
     }
 
+    /**
+     * For delete the maze information in the list
+     */
     private void deletePressed(){
         int index = mazeList.getSelectedIndex();
         data.remove(mazeList.getSelectedValue());
@@ -285,12 +313,20 @@ public class SearchMazeMenu extends JPanel {
         mazeList.setSelectedIndex(index);
         checkListSize();
     }
+
+    /**
+     * clear the fields when it's not the selected
+     */
     private void clearFields() {
         mazeIDF.setText("");
         authorF.setText("");
         DateCreatedF.setText("");
         DateEditedF.setText("");
     }
+
+    /**
+     * mazeListListener for the items is selected in the list.
+     */
     private class mazeListListener implements ListSelectionListener{
         public void valueChanged(ListSelectionEvent e) {
             if (mazeList.getSelectedValue() != null
@@ -303,6 +339,9 @@ public class SearchMazeMenu extends JPanel {
         }
     }
 
+    /**
+     * method for keep data after closing program
+     */
     private class ClosingListener extends WindowAdapter{
         public void windowClosing(WindowEvent e){
             data.persist();
