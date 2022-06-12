@@ -16,11 +16,18 @@ public class SearchMazeData {
 
         mazeData = new JDBCMazeDataSource();
 
-        for (String mazeName: mazeData.mazeNameSet()){
-            listModel.addElement(mazeName);
-        }
+        Update();
+
     }
 
+
+    public void Update(){
+        for (String mazeName: mazeData.mazeNameSet()){
+               if(mazeName != null && mazeName != ""){
+                listModel.addElement(mazeName);
+               }
+        }
+    }
 
     public void add(Maze m){
         if(!listModel.contains(m.getMazeName())){

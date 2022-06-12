@@ -258,9 +258,13 @@ public class ButtonPanel extends JPanel {
             }
         }
         private void savePressed() {
-            if ((textFieldTitle.getText() != null) && (textFieldAuthor.getText() != null)) {
+            data.Update();
+            if ((textFieldAuthor.getText().trim().equals("") || textFieldAuthor.getText().length() == 0) || (textFieldTitle.getText().trim().equals("") || textFieldTitle.getText().length() == 0)) {
+                   JOptionPane.showMessageDialog( buttonSave, "TextFields can't be null");
+            }else{
                 Maze m = new Maze(textFieldTitle.getText(), textFieldAuthor.getText(), "1", str, str);
                 data.add(m);
+                System.out.println(data.getModel());
             }
         }
     }

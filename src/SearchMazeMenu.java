@@ -226,7 +226,9 @@ public class SearchMazeMenu extends JPanel {
     private void sortMazeTitle() {
         //Collections.sort(mazeTitles);
         //listModel.fireDateChanged();
-
+        data.Update();
+        System.out.println(data.getModel());
+        mazeList.setModel(data.getModel());
 
     }
 
@@ -279,6 +281,7 @@ public class SearchMazeMenu extends JPanel {
                 index = 0;
             }
         }
+        data.Update();
         mazeList.setSelectedIndex(index);
         checkListSize();
     }
